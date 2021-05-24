@@ -3,6 +3,9 @@ package com.balarawool.algo.nqueen;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Finds all solutions to N-Queen Problem using brute-force algorithm.
+ */
 public class NQueenProblemAllSolutions {
     private int n;
 
@@ -30,14 +33,20 @@ public class NQueenProblemAllSolutions {
     }
 
     private void placeQueens(int n, Square[][] squares, List<Coords> solution) {
+        // For each row, i
         for (int i = 0; i < squares.length; i++) {
+            // For each column, j
             for (int j = 0; j < squares[i].length; j++) {
+                // If squares[i][j] is unoccupied and un-attacked
                 if (!squares[i][j].hasQueen && !squares[i][j].isAttacked) {
+                    // Place queen at squares[i][j] and mark attacked squares
                     Coords coords = squares[i][j].coords;
                     Square[][] squaresCopy = copy(squares);
                     placeQueen(squaresCopy, coords);
                     solution.add(coords);
+                    // If (n == 1) then "Solution found"
                     if (n == 1) { System.out.println(solution); addToSolutions(copy(solution)); }
+                    // Else place n-1 queens
                     else { placeQueens(n - 1, squaresCopy, solution); }
                     solution.remove(coords);
                 }
